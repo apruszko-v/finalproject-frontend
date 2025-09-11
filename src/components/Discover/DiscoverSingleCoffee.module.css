@@ -1,0 +1,89 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.coffeeHeader {
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.coffeeImage {
+  max-width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.coffeeInfo {
+  flex: 1;
+}
+
+.coffeeTitle {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #5a3e2b;
+}
+
+.rating {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff8f0f;
+  margin-top: 10px;
+}
+
+.reviewsSection {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.reviewList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reviewItem {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.reviewItem:last-child {
+  border-bottom: none;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.username {
+  font-weight: bold;
+  color: #333;
+}
+
+.userRating {
+  color: #ff8f0f;
+  font-weight: bold;
+}
+
+.comment {
+  color: #555;
+  font-size: 14px;
+}
+
+.noReviews {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}

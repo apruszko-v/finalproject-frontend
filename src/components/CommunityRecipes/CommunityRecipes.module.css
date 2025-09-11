@@ -1,0 +1,203 @@
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.bcg {
+  background-image: url('../../../public/bcg5.png');
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  min-height: 100vh;
+}
+
+.bcg h2 {
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 20px;
+}
+
+.bcg form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.bcg input {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.bcg input:focus {
+  border-color: #a9744f; 
+}
+
+.bcg button {
+  padding: 10px 20px;
+  background-color: #FF8F0F;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.bcg button:hover {
+  background-color: #d3770e;
+}
+
+.bcg img {
+  display: block;
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+.bcg h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #5a3e2b;
+}
+
+.noRecipeText {
+  text-align: center;
+  font-size: 1rem;
+  color: #000000;
+}
+
+.bcg ul {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.bcg li {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+}
+
+.bcg li strong {
+  color: #000000;
+}
+
+.bcg p[style*="color: red"] {
+  text-align: center;
+  font-weight: bold;
+}
+
+.highlight1 {
+  color: #FF8F0F;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.highlight {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.rating {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF8F0F;
+    text-align: start;
+    padding-top: 40px;
+    background-image: url('../../../public/ratingstar.png');
+    background-size: 120%;
+    background-repeat: no-repeat;
+  
+}
+
+.ratingBox {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 2px solid #FF8F0F;
+  border-radius: 50px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ratingValue {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FF8F0F;
+  margin-right: 8px;
+}
+
+.ratingStar {
+  font-size: 30px;
+  color: #FF8F0F;
+}
+h4 {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+.coffeeDetails {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coffeeDetails h3 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #5a3e2b;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.coffeeParam {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.coffeeParam:last-child {
+  border-bottom: none;
+}
+
+.coffeeLabel {
+  font-weight: bold;
+  color: #FF8F0F;
+}
+
+.coffeeValue {
+  color: #333;
+  text-align: right;
+}
+
+.orText {
+  text-align: center;
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.addRecipeText {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 40px;
+  font-weight: bold;
+  color: #FF8F0F;
+  text-decoration: solid underline;
+}

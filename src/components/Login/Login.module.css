@@ -1,0 +1,121 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF8F0F;
+  border-radius: 30px;
+  border: #000000 1px solid;
+  width: 690px;
+  height: 450px;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerText {
+  font-size: 65px;
+  font-weight: bold;
+  color: #FF8F0F;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loginBox {
+  background-color: white;
+  padding: 0px 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: #000000 1px solid;
+  width: 580px;
+  height: 380px;
+}
+
+.loginBox h2 {
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.loginBox form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginBox label {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.loginBox input {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+  margin-bottom: 10px
+}
+
+.loginBox input:focus {
+  border-color: #FF8F0F;
+  outline: none;
+}
+
+.loginBox button {
+  background-color: #000000;
+  color: white;
+  padding: 12px;
+  margin-top: 50px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.loginBox button:hover {
+  background-color: #e27e0d;
+}
+
+.message {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.bcg {
+    background-image: url('../../../public/bcg2.png');
+    height: 90vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.registerPrompt {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 30px;
+}
+
+.registerPrompt a {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.highlight {
+  color: #FF8F0F;
+}

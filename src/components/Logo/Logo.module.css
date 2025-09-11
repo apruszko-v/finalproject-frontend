@@ -1,0 +1,26 @@
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.logoLink {
+  display: flex;       
+  align-items: center; 
+  text-decoration: none; 
+  gap: 10px;          
+}
+
+.logoPng {
+  height: 50px;
+  width: auto;
+}
+
+.logoText {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
