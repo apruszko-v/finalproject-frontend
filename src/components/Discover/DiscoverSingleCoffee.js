@@ -72,83 +72,108 @@ function DiscoverSingleCoffee() {
   };
 
   return (
-    <Wrapper>
-      <div className={styles.container}>
-        <div className={styles.coffeeHeader}>
-          <img
-            src={coffee.imageUrl}
-            alt={coffee.nameCoffee}
-            className={styles.coffeeImage}
-          />
-          <div className={styles.coffeeInfo}>
-            <h2 className={styles.coffeeTitle}>{coffee.nameCoffee}</h2>
-            <p><strong>Origin:</strong> {coffee.origin}</p>
-            <p><strong>Roastery:</strong> {coffee.roastery}</p>
-            <p><strong>Roast Level:</strong> {coffee.roastLevel}</p>
-            <p><strong>Flavour Notes:</strong> {coffee.flavourNotes?.join(", ")}</p>
-            <p><strong>Recommended Methods:</strong> {coffee.recommendedMethods?.join(", ")}</p>
-            <p className={styles.rating}><strong>Rating:</strong> {coffee.ratingCoffee} ★</p>
-          </div>
-        </div>
+    <div className={styles.bcg}>
+      <Wrapper>
+        <div className={styles.container}>
+          <div className={styles.coffeeHeader}>
+            <img
+              src={coffee.imageUrl}
+              alt={coffee.nameCoffee}
+              className={styles.coffeeImage}
+            />
+            <div className={styles.coffeeInfo}>
+              <div className={styles.titleRating}>
+                <h2 className={styles.coffeeTitle}>{coffee.nameCoffee}</h2>
+                <p className={styles.rating}>{coffee.ratingCoffee
+                      ? coffee.ratingCoffee.toFixed(1)
+                      : "No rating"} ★</p>
+              </div>
 
-        <div className={styles.reviewsSection}>
-          <div className={styles.reviewHeaderLine}>
-            <h3>User Reviews</h3>
-            <button
-              className={styles.addReviewBtn}
-              onClick={() => setShowForm(!showForm)}
-            >
-              {showForm ? "Cancel" : "Add Your Review"}
-            </button>
+              <p>
+                <strong>Origin:</strong> {coffee.origin}
+              </p>
+              <p>
+                <strong>Roastery:</strong> {coffee.roastery}
+              </p>
+              <p>
+                <strong>Roast Level:</strong> {coffee.roastLevel}
+              </p>
+              <p>
+                <strong>Flavour Notes:</strong>{" "}
+                {coffee.flavourNotes?.join(", ")}
+              </p>
+              <p>
+                <strong>Recommended Methods:</strong>{" "}
+                {coffee.recommendedMethods?.join(", ")}
+              </p>
+            </div>
           </div>
 
-          {showForm && (
-            <form onSubmit={handleAddReview} className={styles.reviewForm}>
-              <label>
-                Rating:
-                <select
-                  value={rating}
-                  onChange={(e) => setRating(e.target.value)}
-                >
-                  {[1, 2, 3, 4, 5].map((num) => (
-                    <option key={num} value={num}>
-                      {num}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Comment:
-                <textarea
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  required
-                ></textarea>
-              </label>
-              <button type="submit" className={styles.submitBtn}>
-                Submit
+          <div className={styles.reviewsSection}>
+            <div className={styles.reviewHeaderLine}>
+              <h3>what coffee lovers say</h3>
+              <button
+                className={styles.addReviewBtn}
+                onClick={() => setShowForm(!showForm)}
+              >
+                {showForm ? "Cancel" : "share your thoughts"}
               </button>
-            </form>
-          )}
+            </div>
 
-          {reviews.length > 0 ? (
-            <ul className={styles.reviewList}>
-              {reviews.map((r) => (
-                <li key={r.id} className={styles.reviewItem}>
-                  <div className={styles.reviewHeader}>
-                    <span className={styles.username}>{r.username}</span>
-                    <span className={styles.userRating}>{r.rating} ★</span>
-                  </div>
-                  <p className={styles.comment}>{r.comment}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className={styles.noReviews}>No reviews yet.</p>
-          )}
+            {showForm && (
+              <form onSubmit={handleAddReview} className={styles.reviewForm}>
+                <div className={styles.ratingComment}>
+                  <label>
+                    Rating: <break></break>
+                    <select
+                      value={rating}
+                      onChange={(e) => setRating(e.target.value)}
+                    >
+                      {[1, 2, 3, 4, 5].map((num) => (
+                        <option key={num} value={num}>
+                          {num}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                <div className={styles.ratingComment}>
+                  <label>
+                    Comment: <break></break>
+                    <textarea
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      required
+                    ></textarea>
+                  </label>
+
+                  <button type="submit" className={styles.submitReviewBtn}>
+                    Submit
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {reviews.length > 0 ? (
+              <ul className={styles.reviewList}>
+                {reviews.map((r) => (
+                  <li key={r.id} className={styles.reviewItem}>
+                    <div className={styles.reviewHeader}>
+                      <span className={styles.username}>{r.username}</span>
+                      <span className={styles.userRating}>{r.rating} ★</span>
+                    </div>
+                    <p className={styles.comment}>{r.comment}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.noReviews}>No reviews yet.</p>
+            )}
+          </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </div>
   );
 }
 

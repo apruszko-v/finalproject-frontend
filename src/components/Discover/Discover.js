@@ -91,25 +91,51 @@ function Discover() {
                 key={coffee.id}
                 className={styles.coffeeCard}
               >
-                <div key={coffee.id} className={styles.coffeeCard}>
+                <div key={coffee.id} className={styles.coffeeCard2}>
                   <img
                     className={styles.coffeeImage}
                     src={coffee.imageUrl}
                     alt={coffee.nameCoffee}
                   />
-                  <h3>{coffee.nameCoffee}</h3>
-                  <p>Roastery: {coffee.roastery}</p>
-                  <p>{coffee.description}</p>
-                  <p>Origin: {coffee.origin}</p>
-                  <p>Roast: {coffee.roastLevel}</p>
+                  <div className={styles.titleRating}>
+                    <h3>{coffee.nameCoffee}</h3>
+                    <p className={styles.rating}>
+                      {coffee.ratingCoffee
+                        ? coffee.ratingCoffee.toFixed(1)
+                        : "No rating"}
+                      ★
+                    </p>
+                  </div>
+
                   <p>
-                    Flavour Notes: {Array.from(coffee.flavourNotes).join(", ")}
+                    <span className={styles.coffeeDescription}>
+                      {coffee.description}
+                    </span>
+                  </p>
+
+                  <p>
+                    <span className={styles.coffeeParam}>Roastery:</span>{" "}
+                    {coffee.roastery}
+                  </p>
+
+                  <p>
+                    <span className={styles.coffeeParam}>Origin:</span>{" "}
+                    {coffee.origin}
                   </p>
                   <p>
-                    Brewing Methods:{" "}
+                    <span className={styles.coffeeParam}>Roast:</span>{" "}
+                    {coffee.roastLevel}
+                  </p>
+                  <p>
+                    <span className={styles.coffeeParam}>Flavour Notes:</span>{" "}
+                    {Array.from(coffee.flavourNotes).join(", ")}
+                  </p>
+                  <p>
+                    <span className={styles.coffeeParam}>
+                      Brewing Methods:{" "}
+                    </span>
                     {Array.from(coffee.recommendedMethods).join(", ")}
                   </p>
-                  <p className={styles.rating}>Rating: {coffee.ratingCoffee}</p>
                 </div>
               </Link>
             ))}

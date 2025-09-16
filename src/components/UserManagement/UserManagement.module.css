@@ -1,19 +1,19 @@
 .container {
-  max-width: 500px;
+  max-width: 1000px;
   margin: 40px auto;
   padding: 20px 30px;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  font-family: Arial, sans-serif;
-}
+  border: 1px solid black;
+  
+  
+  } 
 
 .title {
-  font-size: 26px;
+  font-size: 30px;
   text-align: center;
   font-weight: bold;
-  color: #ff8f0f;
   margin-bottom: 25px;
+  font-style: italic;
 }
 
 .inputRow {
@@ -25,7 +25,7 @@
 .input {
   flex: 1;
   padding: 10px 14px;
-  font-size: 1rem;
+  font-size: 18px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fafafa;
@@ -36,17 +36,26 @@
   outline: none;
   border-color: #ff8f0f;
   background: white;
-  box-shadow: 0 0 0 2px rgba(255, 143, 15, 0.2);
+}
+
+td .input {
+  flex: 1;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  transition: border 0.2s ease-in-out;
+  max-width: 100px;
 }
 
 .button {
   padding: 10px 16px;
-  font-size: 1rem;
+  font-size: 18px;
   background-color: #ff8f0f;
   color: white;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid black;
+  border-radius: 30px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .button:hover {
@@ -64,11 +73,12 @@
 .deleteButton {
   background-color: red;
   color: white;
+  font-weight: bold;
   padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid black;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 18px;
 }
 
 .deleteButton:hover {
@@ -90,25 +100,29 @@
 }
 
 .userDetails {
-  /* background: #f9f9f9; */
-  padding: 15px;
+  padding-bottom: 15px;
   border-radius: 8px;
   margin-top: 15px;
-  border: 1px solid #eee;
+}
+
+.profileUpdate {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 18px
+  
 }
 
 .userDetails p {
   margin: 5px 0;
+  
 }
 
 .recipeTable {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
   background: #fff;
-  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
 }
 
 .recipeTable th,
@@ -118,38 +132,71 @@
 }
 
 .recipeTable th {
-  background-color: #ff8f0f;
-  color: white;
   font-weight: bold;
-  font-size: 14px;
-}
-
-.recipeTable tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.recipeTable tr:hover {
-  background-color: #f1f1f1;
+  font-size: 18px;
+  font-style: italic;
+  border-bottom: 1px solid #ff8f0f;
 }
 
 .recipeTable td {
-  font-size: 14px;
   color: #333;
   vertical-align: top;
+  
 }
 
-.recipeTable td:last-child {
-  max-width: 200px;
+.recipeTable .notes {
+  width: 200px;
   word-wrap: break-word;
 }
 
 .container2 {
-  max-width: 700px;
+  max-width: 1600px;
   margin: 40px auto;
   padding: 20px 30px;
   background: #ffffff;
-  /* border-radius: 12px; */
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
   border: black 1px solid;
-  font-family: Arial, sans-serif;
+}
+
+.btnRecRev {
+  font-size: 16px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.del {
+  font-size: 16px;
+  background-color: white;
+  border: none;
+  color: red;
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+
+}
+
+.userDtlSingle {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.bcg {
+    background-image: url('../../../public/bcg7.png');
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.fieldError {
+  color: crimson;
+  font-size: 0.9em;
+  margin: 2px 0 5px 0;
+  height: 14px; 
 }

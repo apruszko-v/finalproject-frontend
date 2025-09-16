@@ -4,7 +4,6 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
 }
 
 .row {
@@ -18,7 +17,7 @@
 .textBlock {
   background: rgba(255, 255, 255, 0.85);
   padding: 30px;
-  border-radius: 10px;
+  border: 1px solid black;
 }
 
 .textBlock h2 {
@@ -35,9 +34,7 @@
 }
 
 .imageBlock {
-  overflow: hidden;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .imageBlock img {

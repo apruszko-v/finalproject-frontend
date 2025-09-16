@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./UserManagement.module.css";
 import { useNavigate } from "react-router-dom";
+import Wrapper from "../../Wrapper";
 
 function UserManagement() {
   const navigate = useNavigate();
@@ -9,12 +10,22 @@ function UserManagement() {
   const [updatedUsername, setUpdatedUsername] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const [recipes, setRecipes] = useState([]);
   const [reviews, setReviews] = useState([]);
 
   const [editRecipeId, setEditRecipeId] = useState(null);
   const [editRecipeNotes, setEditRecipeNotes] = useState("");
-  // const [edit]
+  const [editRecipeGrindSetting, setEditRecipeGrindSetting] = useState("");
+  const [editRecipeCoffeeDoseGrams, setEditRecipeCoffeeDoseGrams] =
+    useState("");
+  const [editRecipeWaterVolumeMl, setEditRecipeWaterVolumeMl] = useState("");
+  const [
+    editRecipeWaterTemperatureCelsius,
+    setEditRecipeWaterTemperatureCelsius,
+  ] = useState("");
+  const [editRecipeBrewingTimeSeconds, setEditRecipeBrewingTimeSeconds] =
+    useState("");
 
   const [editReviewId, setEditReviewId] = useState(null);
   const [editReviewComment, setEditReviewComment] = useState("");
@@ -51,29 +62,45 @@ function UserManagement() {
   }, [navigate]);
 
   const handleUpdateUser = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:8080/api/users/${userData.id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            email: updatedEmail,
-            username: updatedUsername,
-          }),
-        }
-      );
-      if (!res.ok) throw new Error("Update failed");
+  setMessage("");
+  setFieldErrors({});
+
+  try {
+    const res = await fetch(
+      `http://localhost:8080/api/users/${userData.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          email: updatedEmail,
+          username: updatedUsername,
+          password: updatedPassword || undefined,
+        }),
+      }
+    );
+
+    if (res.ok) {
       const data = await res.json();
       setUserData(data);
       setMessageType("success");
       setMessage("Profile updated successfully");
-    } catch (err) {
-      setMessageType("error");
-      setMessage(err.message);
+    } else {
+      const errorData = await res.json();
+
+      if (errorData.error) {
+        setMessageType("error");
+        setMessage(errorData.error);
+      } else {
+        setFieldErrors(errorData);
+      }
     }
-  };
+  } catch (err) {
+    setMessageType("error");
+    setMessage("Update failed: " + err.message);
+  }
+};
+
 
   const handleDeleteUser = async () => {
     if (!window.confirm("Are you sure you want to delete your account?"))
@@ -88,7 +115,7 @@ function UserManagement() {
       );
       if (!res.ok) throw new Error("Delete failed");
       setMessageType("success");
-      setMessage("Account deleted successfully");
+      alert("Account deleted successfully");
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {
       setMessageType("error");
@@ -112,6 +139,11 @@ function UserManagement() {
   const handleEditRecipe = (recipe) => {
     setEditRecipeId(recipe.id);
     setEditRecipeNotes(recipe.notes);
+    setEditRecipeGrindSetting(recipe.grindSetting);
+    setEditRecipeCoffeeDoseGrams(recipe.coffeeDoseGrams);
+    setEditRecipeWaterVolumeMl(recipe.waterVolumeMl);
+    setEditRecipeWaterTemperatureCelsius(recipe.waterTemperatureCelsius);
+    setEditRecipeBrewingTimeSeconds(recipe.brewingTimeSeconds);
   };
 
   const handleSaveRecipe = async (id) => {
@@ -181,163 +213,293 @@ function UserManagement() {
   if (!userData) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div className={styles.container}>
-        <h2 className={styles.title}>My Profile</h2>
+    <div className={styles.bcg}>
+      <Wrapper>
+        <div className={styles.container}>
+          <h2 className={styles.title}>my profile</h2>
 
-        {message && (
-          <p
-            className={`${styles.message} ${
-              messageType === "error"
-                ? styles.messageError
-                : styles.messageSuccess
-            }`}
+          {message && (
+            <p
+              className={`${styles.message} ${
+                messageType === "error"
+                  ? styles.messageError
+                  : styles.messageSuccess
+              }`}
+            >
+              {message}
+            </p>
+          )}
+
+          <div className={styles.userDetails}>
+            <div className={styles.userDtlSingle}>
+              <div>
+                <p>
+                  <strong>Username:</strong> {userData.username}
+                </p>
+              </div>
+              <br />
+              <div>
+                <p>
+                  <strong>Email:</strong> {userData.email}
+                </p>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <label className={styles.profileUpdate}>change username: </label>
+          {fieldErrors.username && <p className={styles.fieldError}>{fieldErrors.username}</p>}
+          <input
+            type="text"
+            value={updatedUsername}
+            onChange={(e) => setUpdatedUsername(e.target.value)}
+            className={styles.input}
+          />
+          <br />
+
+          <label className={styles.profileUpdate}>change email: </label>
+          {fieldErrors.email && <p className={styles.fieldError}>{fieldErrors.email}</p>}
+          <input
+            type="text"
+            value={updatedEmail}
+            onChange={(e) => setUpdatedEmail(e.target.value)}
+            className={styles.input}
+          />
+          <br />
+
+          <label className={styles.profileUpdate}>change password: </label>
+          {fieldErrors.password && <p className={styles.fieldError}>{fieldErrors.password}</p>}
+          <input
+            type="password"
+            value={updatedPassword}
+            onChange={(e) => setUpdatedPassword(e.target.value)}
+            className={styles.input}
+          />
+          <br />
+
+          <button onClick={handleUpdateUser} className={styles.button}>
+            update profile
+          </button>
+
+          <h3 style={{ marginTop: "20px" }}>delete account</h3>
+          <button
+            onClick={handleDeleteUser}
+            className={`${styles.button} ${styles.deleteButton}`}
           >
-            {message}
-          </p>
-        )}
-
-        <div className={styles.userDetails}>
-          <p><strong>Username:</strong> {userData.username}</p><br />
-          <p><strong>Email:</strong> {userData.email}</p><br />
+            delete my account
+          </button>
         </div>
 
-        <label>Update Username</label>
-        <input
-          type="text"
-          value={updatedUsername}
-          onChange={(e) => setUpdatedUsername(e.target.value)}
-          className={styles.input}
-        /><br />
-
-        <label>Update Email</label>
-        <input
-          type="email"
-          value={updatedEmail}
-          onChange={(e) => setUpdatedEmail(e.target.value)}
-          className={styles.input}
-        /><br />
-
-        <label>Update Password</label>
-        <input
-          type="password"
-          value={updatedPassword}
-          onChange={(e) => setUpdatedPassword(e.target.value)}
-          className={styles.input}
-        /><br />
-
-        <button onClick={handleUpdateUser} className={styles.button}>
-          Update Profile
-        </button>
-
-        <h3 style={{ marginTop: "20px" }}>Delete Account</h3>
-        <button
-          onClick={handleDeleteUser}
-          className={`${styles.button} ${styles.deleteButton}`}
-        >
-          Delete My Account
-        </button>
-      </div>
-
-      <div className={styles.container2}>
-        <h3 style={{ marginTop: "30px" }}>My Recipes</h3>
-        {recipes.length > 0 ? (
-          <table className={styles.recipeTable}>
-            <thead>
-              <tr>
-                <th>Coffee</th>
-                <th>Brewing Method</th>
-                <th>Notes</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recipes.map((r) => (
-                <tr key={r.id}>
-                  <td>{r.coffeeName}</td>
-                  <td>{r.brewingMethodName}</td>
-                  <td>
-                    {editRecipeId === r.id ? (
-                      <input
-                        value={editRecipeNotes}
-                        onChange={(e) => setEditRecipeNotes(e.target.value)}
-                      />
-                    ) : (
-                      r.notes
-                    )}
-                  </td>
-                  <td>
-                    {editRecipeId === r.id ? (
-                      <button onClick={() => handleSaveRecipe(r.id)}>Save</button>
-                    ) : (
-                      <button onClick={() => handleEditRecipe(r)}>Edit</button>
-                    )}
-                    <button onClick={() => handleDeleteRecipe(r.id)}>Delete</button>
-                  </td>
+        <div className={styles.container2}>
+          <h3 className={styles.title}>my recipes</h3>
+          {recipes.length > 0 ? (
+            <table className={styles.recipeTable}>
+              <thead>
+                <tr>
+                  <th>coffee</th>
+                  <th>brewing method</th>
+                  <th>grind setting</th>
+                  <th>coffee dose</th>
+                  <th>water volume</th>
+                  <th>water temperature</th>
+                  <th>brewing time</th>
+                  <th>notes</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>You haven't written any recipes yet.</p>
-        )}
-      </div>
+              </thead>
 
-      <div className={styles.container2}>
-        <h3 style={{ marginTop: "30px" }}>My Reviews</h3>
-        {reviews.length > 0 ? (
-          <table className={styles.recipeTable}>
-            <thead>
-              <tr>
-                <th>Coffee</th>
-                <th>Rating</th>
-                <th>Comment</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {reviews.map((rev) => (
-                <tr key={rev.id}>
-                  <td>{rev.coffeeName}</td>
-                  <td>
-                    {editReviewId === rev.id ? (
-                      <input
-                        type="number"
-                        min="1"
-                        max="5"
-                        value={editReviewRating}
-                        onChange={(e) => setEditReviewRating(e.target.value)}
-                      />
-                    ) : (
-                      rev.rating
-                    )}
-                  </td>
-                  <td>
-                    {editReviewId === rev.id ? (
-                      <input
-                        value={editReviewComment}
-                        onChange={(e) => setEditReviewComment(e.target.value)}
-                      />
-                    ) : (
-                      rev.comment
-                    )}
-                  </td>
-                  <td>
-                    {editReviewId === rev.id ? (
-                      <button onClick={() => handleSaveReview(rev.id)}>Save</button>
-                    ) : (
-                      <button onClick={() => handleEditReview(rev)}>Edit</button>
-                    )}
-                    <button onClick={() => handleDeleteReview(rev.id)}>Delete</button>
-                  </td>
+              <tbody>
+                {recipes.map((r) => (
+                  <tr key={r.id}>
+                    <td>{r.coffeeName}</td>
+                    <td>{r.brewingMethodName}</td>
+
+                    <td>
+                      {editRecipeId === r.id ? (
+                        <input
+                          type="number"
+                          value={editRecipeGrindSetting}
+                          onChange={(e) =>
+                            setEditRecipeGrindSetting(e.target.value)
+                          }
+                          className={styles.input}
+                        />
+                      ) : (
+                        r.grindSetting
+                      )}
+                    </td>
+                    <td>
+                      {editRecipeId === r.id ? (
+                        <input
+                          type="number"
+                          value={editRecipeCoffeeDoseGrams}
+                          onChange={(e) =>
+                            setEditRecipeCoffeeDoseGrams(e.target.value)
+                          }
+                          className={styles.input}
+                        />
+                      ) : (
+                        r.coffeeDoseGrams
+                      )}
+                    </td>
+
+                    <td>
+                      {editRecipeId === r.id ? (
+                        <input
+                          type="number"
+                          value={editRecipeWaterVolumeMl}
+                          onChange={(e) =>
+                            setEditRecipeWaterVolumeMl(e.target.value)
+                          }
+                          className={styles.input}
+                        />
+                      ) : (
+                        r.waterVolumeMl
+                      )}
+                    </td>
+                    <td>
+                      {editRecipeId === r.id ? (
+                        <input
+                          type="number"
+                          value={editRecipeWaterTemperatureCelsius}
+                          onChange={(e) =>
+                            setEditRecipeWaterTemperatureCelsius(e.target.value)
+                          }
+                          className={styles.input}
+                        />
+                      ) : (
+                        r.waterTemperatureCelsius
+                      )}
+                    </td>
+                    <td>
+                      {editRecipeId === r.id ? (
+                        <input
+                          type="number"
+                          value={editRecipeBrewingTimeSeconds}
+                          onChange={(e) =>
+                            setEditRecipeBrewingTimeSeconds(e.target.value)
+                          }
+                          className={styles.input}
+                        />
+                      ) : (
+                        r.brewingTimeSeconds
+                      )}
+                    </td>
+                    <td className={styles.notes}>
+                      {editRecipeId === r.id ? (
+                        <textarea
+                          value={editRecipeNotes}
+                          onChange={(e) => setEditRecipeNotes(e.target.value)}
+                          className={styles.input}
+                        />
+                      ) : (
+                        r.notes
+                      )}
+                    </td>
+
+                    <td>
+                      {editRecipeId === r.id ? (
+                        <button
+                          onClick={() => handleSaveRecipe(r.id)}
+                          className={styles.btnRecRev}
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleEditRecipe(r)}
+                          className={styles.btnRecRev}
+                        >
+                          Edit
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleDeleteRecipe(r.id)}
+                        className={styles.del}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>You haven't written any recipes yet.</p>
+          )}
+        </div>
+
+        <div className={styles.container2}>
+          <h3 className={styles.title}>my reviews</h3>
+          {reviews.length > 0 ? (
+            <table className={styles.recipeTable}>
+              <thead>
+                <tr>
+                  <th>coffee</th>
+                  <th>rating</th>
+                  <th>comment</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>You haven't written any reviews yet.</p>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {reviews.map((rev) => (
+                  <tr key={rev.id}>
+                    <td>{rev.coffeeName}</td>
+                    <td>
+                      {editReviewId === rev.id ? (
+                        <input
+                          type="number"
+                          min="1"
+                          max="5"
+                          value={editReviewRating}
+                          onChange={(e) => setEditReviewRating(e.target.value)}
+                          className={styles.input}
+                        />
+                      ) : (
+                        rev.rating
+                      )}
+                    </td>
+                    <td>
+                      {editReviewId === rev.id ? (
+                        <textarea
+                          value={editReviewComment}
+                          onChange={(e) => setEditReviewComment(e.target.value)}
+                          className={styles.input}
+                        />
+                      ) : (
+                        rev.comment
+                      )}
+                    </td>
+                    <td>
+                      {editReviewId === rev.id ? (
+                        <button
+                          onClick={() => handleSaveReview(rev.id)}
+                          className={styles.btnRecRev}
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleEditReview(rev)}
+                          className={styles.btnRecRev}
+                        >
+                          Edit
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleDeleteReview(rev.id)}
+                        className={styles.del}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>You haven't written any reviews yet.</p>
+          )}
+        </div>
+      </Wrapper>
     </div>
   );
 }

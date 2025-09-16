@@ -6,7 +6,9 @@
   border-radius: 30px;
   border: #000000 1px solid;
   width: 690px;
-  height: 450px;
+  height: auto;
+  min-height: 450px;
+  padding: 20px;
 }
 
 .headerContainer {
@@ -94,4 +96,17 @@
   height: 98vh;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.fieldError {
+  color: crimson;
+  font-size: 0.9em;
+  margin: 1px 0 0 0;
+  height: 10px;
 }

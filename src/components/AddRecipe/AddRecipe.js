@@ -119,9 +119,10 @@ function AddRecipe() {
   };
 
   return (
+    <div className={styles.bcg}>
     <Wrapper>
       <div>
-        <h2 className={styles.title}>Add a New Recipe</h2>
+        <h2 className={styles.title}>add your recipe</h2>
 
         <form onSubmit={handleAddRecipe} className={styles.form}>
           <select
@@ -166,7 +167,7 @@ function AddRecipe() {
 
           <input
             className={styles.input}
-            type="text"
+            type="number"
             placeholder="Grind Setting"
             value={grindSetting}
             onChange={(e) => setGrindSetting(e.target.value)}
@@ -223,6 +224,7 @@ function AddRecipe() {
         </form>
       </div>
     </Wrapper>
+    </div>
   );
 }
 

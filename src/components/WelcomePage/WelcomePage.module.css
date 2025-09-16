@@ -16,7 +16,6 @@
     object-fit: cover;
     max-height: 400px;
     width: 90%;
-    /* height: 200px; */
     border-radius: 8px;
     margin-top: 20px;
     margin: 50px;
@@ -25,11 +24,9 @@
 
 .welcomeContainer {
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* padding: 20px; */
     border: black 1px solid;
 }
 

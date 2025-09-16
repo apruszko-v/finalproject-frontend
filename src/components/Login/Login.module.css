@@ -64,7 +64,7 @@
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 18px;
   transition: border-color 0.3s;
   margin-bottom: 10px
 }
@@ -93,7 +93,7 @@
 .message {
   text-align: center;
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .bcg {
@@ -118,4 +118,9 @@
 
 .highlight {
   color: #FF8F0F;
+}
+
+.message {
+  color: red;
+  font-weight: bold;
 }

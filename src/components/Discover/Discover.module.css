@@ -5,7 +5,6 @@
     text-align: center;
 }
 
-
 .coffeeList {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
@@ -13,42 +12,84 @@
   list-style: none;
   padding: 0;
   margin: 0;
+ align-items: stretch;
 }
 
 .coffeeCard {
-  border: 1px solid black;
   padding: 15px;
   box-sizing: border-box;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   text-align: center;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: column; 
+  height: 100%;
+}
+
+.coffeeCard2 {
+  border: 1px solid black;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.824);
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.coffeeCard:hover {
+.coffeeCard2 h3 {
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.coffeeCard2:hover {
   transform: scale(1.03);
-  background-color: #FF8F0F;
+  background-color: #f18100b3;
 }
 
 .coffeeImage {
-  width: 80%; 
-  max-width: 400px; 
-  height: auto;
+  width: 100%; 
   display: block;
   margin: 0 auto 10px auto; 
+  height: 340px;
+  object-fit:scale-down; 
 }
 
 .filters {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 30px;
     gap: 30px;
 }
 
 .discoverBcg {
     background-image: url('../../../public/bcg1.png');
-  /* background-size: cover; */
-  /* background-position: center; */
-  /* background-repeat: no-repeat; */
 }
 
+.coffeeParam {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.coffeeDescription {
+  font-style: italic;
+  font-size: 25px;
+  padding: 0 10px;
+    text-align: center;
+}
+
+.titleRating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  
+}
+
+.rating {
+  color: #FF8F0F;
+  font-size: 28px;
+  font-weight:bold;
+}

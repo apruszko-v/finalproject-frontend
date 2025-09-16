@@ -9,13 +9,15 @@ function Login({ setAuth }) {
   const [message, setMessage] = useState("");
   const Navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+ const handleLogin = async (e) => {
+  e.preventDefault();
+  setMessage("");
 
-    const formData = new URLSearchParams();
-    formData.append("username", username);
-    formData.append("password", password);
+  const formData = new URLSearchParams();
+  formData.append("username", username);
+  formData.append("password", password);
 
+  try {
     const response = await fetch("http://localhost:8080/api/users/login", {
       method: "POST",
       body: formData,
@@ -23,18 +25,30 @@ function Login({ setAuth }) {
     });
 
     if (response.ok) {
-      Navigate("/discover");
       const meResponse = await fetch("http://localhost:8080/api/users/me", {
         credentials: "include",
       });
       if (meResponse.ok) {
         const data = await meResponse.json();
         setAuth(data);
+        Navigate("/discover");
       }
     } else {
-      setMessage("Login failed");
+      let errorMessage = "Login failed";
+      try {
+        const errorData = await response.json();
+        if (errorData.error) {
+          errorMessage = errorData.error; 
+        }
+      } catch {
+        errorMessage = "Login failed";
+      }
+      setMessage(errorMessage);
     }
-  };
+  } catch (err) {
+    setMessage("An error occurred. Please try again. " + err.message);
+  }
+};
 
   return (
     <div className={styles.bcg}>
