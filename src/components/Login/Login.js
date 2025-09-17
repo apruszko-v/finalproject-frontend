@@ -18,7 +18,7 @@ function Login({ setAuth }) {
   formData.append("password", password);
 
   try {
-    const response = await fetch("http://localhost:8080/api/users/login", {
+    const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       body: formData,
       credentials: "include",
@@ -34,16 +34,12 @@ function Login({ setAuth }) {
         Navigate("/discover");
       }
     } else {
-      let errorMessage = "Login failed";
       try {
         const errorData = await response.json();
-        if (errorData.error) {
-          errorMessage = errorData.error; 
-        }
+        setMessage(errorData.error || "Login failed");
       } catch {
-        errorMessage = "Login failed";
+        setMessage("Login failed");
       }
-      setMessage(errorMessage);
     }
   } catch (err) {
     setMessage("An error occurred. Please try again. " + err.message);

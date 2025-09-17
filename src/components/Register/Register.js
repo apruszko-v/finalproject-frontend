@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Register.module.css"; 
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -8,6 +9,7 @@ function Register() {
 
   const [generalError, setGeneralError] = useState(""); 
   const [fieldErrors, setFieldErrors] = useState({}); 
+  const Navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ function Register() {
         setUsername("");
         setEmail("");
         setPassword("");
+        Navigate("/login");
       } else {
         const errorData = await response.json();
 

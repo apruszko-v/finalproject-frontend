@@ -62,45 +62,44 @@ function UserManagement() {
   }, [navigate]);
 
   const handleUpdateUser = async () => {
-  setMessage("");
-  setFieldErrors({});
+    setMessage("");
+    setFieldErrors({});
 
-  try {
-    const res = await fetch(
-      `http://localhost:8080/api/users/${userData.id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          email: updatedEmail,
-          username: updatedUsername,
-          password: updatedPassword || undefined,
-        }),
-      }
-    );
+    try {
+      const res = await fetch(
+        `http://localhost:8080/api/users/${userData.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            email: updatedEmail,
+            username: updatedUsername,
+            password: updatedPassword || undefined,
+          }),
+        }
+      );
 
-    if (res.ok) {
-      const data = await res.json();
-      setUserData(data);
-      setMessageType("success");
-      setMessage("Profile updated successfully");
-    } else {
-      const errorData = await res.json();
-
-      if (errorData.error) {
-        setMessageType("error");
-        setMessage(errorData.error);
+      if (res.ok) {
+        const data = await res.json();
+        setUserData(data);
+        setMessageType("success");
+        setMessage("Profile updated successfully");
       } else {
-        setFieldErrors(errorData);
-      }
-    }
-  } catch (err) {
-    setMessageType("error");
-    setMessage("Update failed: " + err.message);
-  }
-};
+        const errorData = await res.json();
 
+        if (errorData.error) {
+          setMessageType("error");
+          setMessage(errorData.error);
+        } else {
+          setFieldErrors(errorData);
+        }
+      }
+    } catch (err) {
+      setMessageType("error");
+      setMessage("Update failed: " + err.message);
+    }
+  };
 
   const handleDeleteUser = async () => {
     if (!window.confirm("Are you sure you want to delete your account?"))
@@ -152,13 +151,18 @@ function UserManagement() {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ notes: editRecipeNotes }),
+        body: JSON.stringify({
+          notes: editRecipeNotes,
+          grindSetting: editRecipeGrindSetting,
+          coffeeDoseGrams: editRecipeCoffeeDoseGrams,
+          waterVolumeMl: editRecipeWaterVolumeMl,
+          waterTemperatureCelsius: editRecipeWaterTemperatureCelsius,
+          brewingTimeSeconds: editRecipeBrewingTimeSeconds,
+        }),
       });
       if (res.ok) {
-        const updated = recipes.map((r) =>
-          r.id === id ? { ...r, notes: editRecipeNotes } : r
-        );
-        setRecipes(updated);
+        const updatedRecipe = await res.json();
+        setRecipes(recipes.map((r) => (r.id === id ? updatedRecipe : r)));
         setEditRecipeId(null);
       }
     } catch (err) {
@@ -248,7 +252,9 @@ function UserManagement() {
           </div>
 
           <label className={styles.profileUpdate}>change username: </label>
-          {fieldErrors.username && <p className={styles.fieldError}>{fieldErrors.username}</p>}
+          {fieldErrors.username && (
+            <p className={styles.fieldError}>{fieldErrors.username}</p>
+          )}
           <input
             type="text"
             value={updatedUsername}
@@ -258,7 +264,9 @@ function UserManagement() {
           <br />
 
           <label className={styles.profileUpdate}>change email: </label>
-          {fieldErrors.email && <p className={styles.fieldError}>{fieldErrors.email}</p>}
+          {fieldErrors.email && (
+            <p className={styles.fieldError}>{fieldErrors.email}</p>
+          )}
           <input
             type="text"
             value={updatedEmail}
@@ -268,7 +276,9 @@ function UserManagement() {
           <br />
 
           <label className={styles.profileUpdate}>change password: </label>
-          {fieldErrors.password && <p className={styles.fieldError}>{fieldErrors.password}</p>}
+          {fieldErrors.password && (
+            <p className={styles.fieldError}>{fieldErrors.password}</p>
+          )}
           <input
             type="password"
             value={updatedPassword}
